@@ -8,6 +8,7 @@ const HomeScreen = () =>  {
         <>
             <h1>Latest Products</h1>
             <Row>
+                {/* Map is telling it to loop through each product where it is then bringing in the product component to know how to display each one */}
                 {products.map(product => (
                     <Col sm={12} md={6} lg={4}>
                         {/*<h3>{product.name}</h3>*/}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap'
+import Rating from './Rating'
 
 // access props (product._id and product.image) through the ({ product )} in the function param
 const Product = ({ product }) => {
@@ -17,9 +18,10 @@ const Product = ({ product }) => {
                     </Card.Title>
                 </a>
                 <Card.Text as='div'>
-                    <div className='my-3'>
+                    {/* taking in two props value and text */}
+                    <Rating value={product.rating} text={`${product.numReviews} reviews`}>
                         {product.rating} from {product.numReviews} reviews
-                    </div>
+                    </Rating>
                 </Card.Text>
                 <Card.Text as='h3'>
                     ${product.price}
