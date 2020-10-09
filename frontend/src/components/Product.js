@@ -18,7 +18,7 @@ const Product = ({ product }) => {
                     </Card.Title>
                 </a>
                 <Card.Text as='div'>
-                    {/* taking in two props value and text */}
+                    {/* taking in two props value and text (talking with Rating component) */}
                     <Rating value={product.rating} text={`${product.numReviews} reviews`}>
                         {product.rating} from {product.numReviews} reviews
                     </Rating>
