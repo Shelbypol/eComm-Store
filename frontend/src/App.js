@@ -18,7 +18,7 @@ const App = () => {
                 <Container>
                     {/* declare route, assign path and whht component that path goes to and then 'exact' which means the path must match exactly */}
                     <Route path='/' component={HomeScreen} exact />
-                    <Route path='/product' component={ProductScreen} exact/>
+                    <Route path='/product/:id' component={ProductScreen}/>
                 </Container>
             </main>
             <Footer/>
