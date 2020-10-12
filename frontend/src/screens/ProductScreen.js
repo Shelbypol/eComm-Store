@@ -1,10 +1,47 @@
 import React from 'react'
+import {Link } from 'react-router-dom'
+import { Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
+import Rating from "../components/Rating";
+import products from "../products";
 
-const ProductScreen = () => {
+const ProductScreen = ({ match }) => {
+
+    // Using destructured prop above 'match' to match params of url Id that user clicked on
+    const product = products.find((p) => p._id === match.params.id)
+
+
     return (
-        <div>
-            Product
-        </div>
+        <>
+            <Link className='btn btn-light my-3' to='/'>
+                Go back
+            </Link>
+            <Row>
+                <Col md={6}>
+                    {/* image component from react bootstrap */}
+                    {/* 'fluid' forces the image to stay in it's container */}
+                    <Image src={product.image} alt={product.name} fluid/>
+                </Col>
+                <Col md={3}>
+                    {/* variant flush takes away the border */}
+                    <ListGroup variant='flush'>
+                        <ListGroup.Item>
+                            <h3>{product.name}</h3>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            {/* Rating takes in value text so must add them in order for rating to work (props) */}
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            Price: ${product.price}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            Description: ${product.description}
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Col>
+            </Row>
+
+            </>
     )
 }
 
