@@ -1,12 +1,23 @@
 {
   "name": "e-comm_store",
   "version": "1.0.0",
-  "description": "",
+  "description": "MERN shopping cart app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Shelby Polasek",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shelbypol/eComm-Store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shelbypol/eComm-Store/issues"
+  },
+  "homepage": "https://github.com/Shelbypol/eComm-Store#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
