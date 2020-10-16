@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
 import Rating from "../components/Rating";
-import products from "../products";
+// import products from "../products";
+import axios from 'axios'
 
 const ProductScreen = ({ match }) => {
 
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+       const fetchProduct = async () => {
+           // find with props.match (already deconstructed)
+           const { data } = await axios.get(`/api/products/${match.params.id}`);
+            setProduct(data)
+       };
+    //   call fetchProduct
+        fetchProduct()
+    }, []);
+
     // Using destructured prop above 'match' to match params of url Id that user clicked on
-    const product = products.find((p) => p._id === match.params.id)
+    // *del (temp set up):
+    // const setProduct = products.find((p) => p._id === match.params.id)
 
 
     return (
