@@ -17,7 +17,7 @@ const ProductScreen = ({ match }) => {
        };
     //   call fetchProduct
         fetchProduct()
-    }, []);
+    }, [match]);
 
     // Using destructured prop above 'match' to match params of url Id that user clicked on
     // *del (temp set up):
