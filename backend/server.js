@@ -2,8 +2,15 @@
 // on the frontend we are using the import syntax which is ES modules
 // with node 14.4 you can use ES modules now without babel
 const express = require ('express');
+
+// bring in env that installed in root (npm i dotenv) environmental variables to set up database connection
+const dotenv = require('dotenv');
+
 // bring over common ES export from root package.json
 const products = require ('./data/products');
+
+//create .env file in root
+dotenv.config();
 
 // initialize express with a variable
 const app = express();
@@ -29,6 +36,8 @@ app.get('/api/products/:id', (req,res) => {
     res.json(product)
 } );
 
+const PORT = process.env.PORT || 5000;
+
 // take variable app and listen on port 5000
-app.listen(5000, console.log('Server running on port 5000'));
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
 
