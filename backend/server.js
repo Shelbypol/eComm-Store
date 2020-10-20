@@ -3,6 +3,8 @@
 // with node 14.4 you can use ES modules now without babel was ( const express = require ('express') now wit
 import express from 'express'
 
+// import colors to change command line colors
+import colors from 'colors'
 // bring in env that installed in root (npm i dotenv) environmental variables to set up database connectio
 import dotenv from 'dotenv'
 
@@ -19,7 +21,7 @@ import products from './data/products.js'
 dotenv.config();
 
 // call the db.js file we imported and we should connect
-connectDB()
+connectDB();
 
 // initialize express with a variable
 const app = express();
@@ -48,5 +50,5 @@ app.get('/api/products/:id', (req,res) => {
 const PORT = process.env.PORT || 5000;
 
 // take variable app and listen on port 5000
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
 

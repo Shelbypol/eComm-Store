@@ -9,9 +9,10 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useCreateIndex: true
         });
-        console.log(`MongoDB Connected: ${conn.connection.host}`)
+        // imported colors for command line color chane of cyan
+        console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline)
     } catch (error) {
-        console.log(`Error: ${error.message}`);
+        console.log(`Error: ${error.message}`.red.underline.bold);
         // passing 1 = fail and to exit
         process.exit(1)
     }
