@@ -6,6 +6,10 @@ import express from 'express'
 // bring in env that installed in root (npm i dotenv) environmental variables to set up database connectio
 import dotenv from 'dotenv'
 
+// ES modules with node means add .js
+// import db.js file to connect mongo
+import connectDB from "./config/db.js";
+
 // bring over common ES export from root package.json
 // with type modules in root package.json we now need to add .js extension to file name (not on packages but on files)
 // will switch this with mongo instead of locally pulling products
@@ -13,6 +17,9 @@ import products from './data/products.js'
 
 //create .env file in root
 dotenv.config();
+
+// call the db.js file we imported and we should connect
+connectDB()
 
 // initialize express with a variable
 const app = express();
