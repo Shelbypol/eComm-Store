@@ -8,6 +8,7 @@ import dotenv from 'dotenv'
 
 // bring over common ES export from root package.json
 // with type modules in root package.json we now need to add .js extension to file name (not on packages but on files)
+// will switch this with mongo instead of locally pulling products
 import products from './data/products.js'
 
 //create .env file in root
