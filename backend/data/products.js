@@ -84,4 +84,4 @@ const products = [
 
 // this ' export default product ' is ES modules which we don't have set up on backend so we need to change it to common js and then bring it over into the backend server.js set up
 // export default products
-module.exports = products;
+export default products;

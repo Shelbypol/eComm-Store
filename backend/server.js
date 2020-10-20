@@ -1,13 +1,14 @@
 // this syntax using 'require' is common javascript which is traditionally what node.js used.
 // on the frontend we are using the import syntax which is ES modules
-// with node 14.4 you can use ES modules now without babel
-const express = require ('express');
+// with node 14.4 you can use ES modules now without babel was ( const express = require ('express') now wit
+import express from 'express'
 
-// bring in env that installed in root (npm i dotenv) environmental variables to set up database connection
-const dotenv = require('dotenv');
+// bring in env that installed in root (npm i dotenv) environmental variables to set up database connectio
+import dotenv from 'dotenv'
 
 // bring over common ES export from root package.json
-const products = require ('./data/products');
+// with type modules in root package.json we now need to add .js extension to file name (not on packages but on files)
+import products from './data/products.js'
 
 //create .env file in root
 dotenv.config();
