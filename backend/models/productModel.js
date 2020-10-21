@@ -21,7 +21,7 @@ const reviewSchema = mongoose.Schema({
 const productSchema = mongoose.Schema({
     // want to know what user/admin created a product so ref adds that relationship
     user: {
-        type: mongoose.Schema.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
     },
