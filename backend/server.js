@@ -42,7 +42,7 @@ app.use('/api/products', productRoutes);
 // func that looks at req and res
 // 500 means server error
 app.use((err, req, res, next) => {
-    const error = res.statusCode === 200 ? 500 : res.statusCode;
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
     res.status(statusCode);
     res.json({
         message: err.message,
