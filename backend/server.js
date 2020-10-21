@@ -8,6 +8,9 @@ import colors from 'colors'
 // bring in env that installed in root (npm i dotenv) environmental variables to set up database connectio
 import dotenv from 'dotenv'
 
+// import middleware
+import { notFound, errHandler } from './middleware/errorMiddleware.js'
+
 // ES modules with node means add .js
 // import db.js file to connect mongo
 import connectDB from "./config/db.js";
@@ -38,17 +41,14 @@ app.get('/', (req,res) => {
 // anything that links to api/products we want to point to productRoutes
 app.use('/api/products', productRoutes);
 
+
+// 404 not found
+app.use(notFound);
+
 // MIDDLEWARE (error)
 // func that looks at req and res
 // 500 means server error
-app.use((err, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    res.status(statusCode);
-    res.json({
-        message: err.message,
-        stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-    })
-});
+app.use(errHandler);
 
 // // GET ALL products
 // // create API route then set up respond with json (could do send but only json is sent to and from, although send would work because it would convert it to json type )
