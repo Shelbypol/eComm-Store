@@ -73,6 +73,6 @@ const orderSchema = mongoose.Schema({
 });
 
 // set to mongoose.Model b/c we want to create a model from this schema
-const Order = mongoose.Model('Order', orderSchema);
+const Order = mongoose.model('Order', orderSchema);
 
 export default Order

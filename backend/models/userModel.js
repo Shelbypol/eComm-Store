@@ -26,6 +26,6 @@ const userSchema = mongoose.Schema({
 });
 
 // set to mongoose.Model b/c we want to create a model from this schema
-const User = mongoose.Model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User

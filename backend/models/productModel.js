@@ -73,6 +73,6 @@ const productSchema = mongoose.Schema({
 });
 
 // set to mongoose.Model b/c we want to create a model from this schema
-const Product = mongoose.Model('Product', productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 export default Product
