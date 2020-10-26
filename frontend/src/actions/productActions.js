@@ -8,6 +8,7 @@ import axios from 'axios'
 
  // actions creators
  // redux thunk allows us to add a function within a function
+ // fire this action off in the component
  export const listProducts = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST });
