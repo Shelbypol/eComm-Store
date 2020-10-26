@@ -57,12 +57,12 @@ const ProductScreen =({ history, match }) => {
             { loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
 
             <Row>
-                <Col md={6}>
+                <Col className='product-page-section' md={6}>
                     {/* image component from react bootstrap */}
                     {/* 'fluid' forces the image to stay in it's container */}
                     <Image src={product.image} alt={product.name} fluid/>
                 </Col>
-                <Col md={3}>
+                <Col className='product-page-section' md={3}>
                     {/* variant flush takes away the border */}
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
@@ -80,7 +80,7 @@ const ProductScreen =({ history, match }) => {
                         </ListGroup.Item>
                     </ListGroup>
                 </Col>
-                <Col md={3}>
+                <Col className='product-page-section' md={3}>
                     <Card>
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
@@ -96,10 +96,10 @@ const ProductScreen =({ history, match }) => {
 
                             <ListGroup.Item>
                                 <Row>
-                                    <Col>
+                                    <Col className='product-page-section'>
                                         Status
                                     </Col>
-                                    <Col>
+                                    <Col className='product-page-section'>
                                         {product.countInStock > 0 ? 'In stock' : 'Out of Stock'}
                                     </Col>
                                 </Row>
@@ -108,9 +108,10 @@ const ProductScreen =({ history, match }) => {
                             {product.countInStock > 0 && (
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Qty</Col>
-                                        <Col>
+                                        <Col className='product-page-section'>Qty</Col>
+                                        <Col className='product-page-section'>
                                             <Form.Control
+                                                style={{width: '85%'}}
                                                 as='select'
                                                 value={qty}
                                                 onChange={(e) => setQty(e.target.value)}

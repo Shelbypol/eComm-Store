@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 // bring in screens to be routed
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
+import CartScreen from "./screens/CartScreen";
 
 const App = () => {
     return (
@@ -19,11 +20,12 @@ const App = () => {
                     {/* declare route, assign path and what component that path goes to and then 'exact' which means the path must match exactly */}
                     <Route path='/' component={HomeScreen} exact />
                     <Route path='/product/:id' component={ProductScreen}/>
+                    <Route path='/cart/:id?' component={CartScreen} />
                 </Container>
             </main>
             <Footer/>
         </Router>
     );
-}
+};
 
 export default App;
