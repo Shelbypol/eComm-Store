@@ -56,7 +56,7 @@ app.use(errHandler);
 // app.get('/api/products', (req,res) => {
 //     res.json(products)
 // } );
-//
+
 // // GET SINGLE product
 // app.get('/api/products/:id', (req,res) => {
 //     // p stands for singular product much like (p : product) in the new array set up and then req.params reads the url and grabs that product that equals p._id
