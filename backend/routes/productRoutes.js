@@ -24,7 +24,7 @@ router.get('/', asyncHandler(async (req, res) => {
 // @access  Public
 router.get('/:id', asyncHandler(async (req, res) => {
     // p stands for singular product much like (p : product) in the new array set up and then req.params reads the url and grabs that product that equals p._id
-    const product = await Product.findById(req.params.id)
+    const product = await Product.findById(req.params.id);
 
     // setting status is optional if not set it will automatically be a 500 error
     if (product) {
