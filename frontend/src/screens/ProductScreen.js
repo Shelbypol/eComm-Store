@@ -1,27 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
-import Rating from "../components/Rating";
+import Rating from '../components/Rating'
+import { listProductDetails } from '../actions/productActions'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+
 // import products from "../products";
-import axios from 'axios'
+// import axios from 'axios'
 
-const ProductScreen = ({ match }) => {
-
-    const [product, setProduct] = useState({});
-
-    useEffect(() => {
-       const fetchProduct = async () => {
-           // find with props.match (already deconstructed)
-           const { data } = await axios.get(`/api/products/${match.params.id}`);
-            setProduct(data)
-       };
-    //   call fetchProduct
-        fetchProduct()
-    }, [match]);
+// ================ BEFORE REDUX
+// const ProductScreen = ({ match }) => {
+//
+//     const [product, setProduct] = useState({});
+//
+//     useEffect(() => {
+//        const fetchProduct = async () => {
+//            // find with props.match (already deconstructed)
+//            const { data } = await axios.get(`/api/products/${match.params.id}`);
+//             setProduct(data)
+//        };
+//     //   call fetchProduct
+//         fetchProduct()
+//     }, [match]);
 
     // Using destructured prop above 'match' to match params of url Id that user clicked on
     // *del (temp set up):
     // const setProduct = products.find((p) => p._id === match.params.id)
+
+    // ============== REDUX IMPLEMENTED
+
+const ProductScreen =({ match }) => {
+    const dispatch = useDispatch();
+
+    const productDetails = useSelector(state => state.productDetails);
+    const{ loading, error, product } = productDetails;
+
+    useEffect(() => {
+        dispatch(listProductDetails(match.params.id))
+    }, [dispatch, match ]);
 
 
     return (
@@ -29,6 +47,8 @@ const ProductScreen = ({ match }) => {
             <Link className='btn btn-light my-3' to='/'>
                 Go back
             </Link>
+            { loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+
             <Row>
                 <Col md={6}>
                     {/* image component from react bootstrap */}
@@ -86,9 +106,10 @@ const ProductScreen = ({ match }) => {
                     </Card>
                 </Col>
             </Row>
+            )}
 
             </>
     )
-}
+};
 
 export default ProductScreen
