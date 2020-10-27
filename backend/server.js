@@ -20,6 +20,7 @@ import connectDB from "./config/db.js";
 // will switch this with mongo instead of locally pulling products
  import products from './data/products.js'
 import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 //create .env file in root
 dotenv.config();
@@ -29,6 +30,8 @@ connectDB();
 
 // initialize express with a variable
 const app = express();
+
+app.use(express.json());
 
 // create routes for GET POST PUT DELETE
 // set up route and then run a function that takes in a request and a response object and then take that response object and
@@ -40,7 +43,7 @@ app.get('/', (req,res) => {
 //mount the productRoutes we imported
 // anything that links to api/products we want to point to productRoutes
 app.use('/api/products', productRoutes);
-
+app.use('/api/users', userRoutes);
 
 // 404 not found
 app.use(notFound);
