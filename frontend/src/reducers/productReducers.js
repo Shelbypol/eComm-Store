@@ -7,7 +7,6 @@ import {
     PRODUCT_DETAILS_SUCCESS,
 } from '../constants/productConstants'
 
-
 // PRODUCTS PAGE REDUCER
 // A reducer takes in two things and initial state as an empty object and an action
 export const productListReducer = (state = { products: [] }, action) => {

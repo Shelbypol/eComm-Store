@@ -35,10 +35,7 @@ const HomeScreen = () => {
     // using hook
     const dispatch = useDispatch();
 
-    // in order to see the products we have to select it
-    // productList name comes from store.js
-    // useSelector takes in an arrow function
-
+    // useSelector retrieves items from state
     const productList = useSelector(state => state.productList);
     const { loading, error, products } = productList;
 
