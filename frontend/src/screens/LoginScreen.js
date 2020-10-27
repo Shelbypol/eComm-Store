@@ -8,22 +8,36 @@ import Loader from '../components/Loader'
 import { login } from '../actions/userAction'
 import FormContainer from "../components/FormContainer";
 
-const LoginScreen = ({ location }) => {
+
+const LoginScreen = ({ location, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const dispatch = useDispatch();
+
+    const userLogin = useSelector(state => state.userLogin);
+    const {loading, error, userInfo} = userLogin;
 
     const redirect = location.search ? location.search.split('=')[1] : '/';
 
+    useEffect(() => {
+        if(userInfo){
+            history.push(redirect)
+        }
+    }, [history, userInfo, redirect]);
+
     const submitHandler = (e) => {
         //prevent page refresh
-        e.preventDefault()
+        e.preventDefault();
     //    DISPATCH LOGIN
+        dispatch(login(email, password))
     };
 
     return (
         <FormContainer>
             <h1>Sign in</h1>
+            {error && <Message variant='danger'>{error}</Message> }
+            {loading && <Loader />}
             <Form onSubmit={submitHandler}>
                 <Form.Group constolId='email'>
                     <Form.Label>Email Address</Form.Label>
