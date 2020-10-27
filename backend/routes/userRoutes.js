@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router();
 
-import { authUser} from '../controllers/userController.js'
+import { authUser, getUserProfile} from '../controllers/userController.js'
 
 
 // GET ALL products MOVED FROM SERVER
@@ -9,8 +9,9 @@ import { authUser} from '../controllers/userController.js'
 // and call products which is the variable on line 6 requiring the products.js from the data folder (save and check port 5000/api/products and will see all products in array)
 // anything that is /api etc wil get pointed to this file so we can just have /
 
-// router.post('/login', authUser);
+router.post('/login', authUser);
 
-router.route('/login').post(authUser);
+// router.route('/login').post(authUser);
+router.route('/profile').get(getUserProfile);
 
 export default router
