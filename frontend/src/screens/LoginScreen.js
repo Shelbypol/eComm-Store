@@ -2,16 +2,24 @@ import React, { useState ,useEffect } from 'react'
 import { Link} from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 // deals with our redux state
-import { useDispatch, useSelector } from "react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { login } from '../actions/userAction'
 import FormContainer from "../components/FormContainer";
 
-const LoginScreen = () => {
+const LoginScreen = ({ location }) => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = userState('');
+    const [password, setPassword] = useState('');
 
+
+    const redirect = location.search ? location.search.split('=')[1] : '/';
+
+    const submitHandler = (e) => {
+        //prevent page refresh
+        e.preventDefault()
+    //    DISPATCH LOGIN
+    };
 
     return (
         <FormContainer>
@@ -22,7 +30,7 @@ const LoginScreen = () => {
                     <Form.Control type='email'
                       placeholder='Enter email'
                                   value={email}
-                                  onChange{(e) => setEmail(e.target.value)}>
+                                  onChange={(e) => setEmail(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
 
@@ -31,12 +39,17 @@ const LoginScreen = () => {
                     <Form.Control type='Password'
                                   placeholder='Enter Password'
                                   value={password}
-                                  onChange{(e) => setPassword(e.target.value)}>
+                                  onChange={(e) => setPassword(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
+                <Button type='submit' variant='primary'>Sign In</Button>
             </Form>
+            <Row className='py-3'>
+                <Col>
+                    New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
+                </Col>
+            </Row>
 
-            </Form>
         </FormContainer>
     )
 };
