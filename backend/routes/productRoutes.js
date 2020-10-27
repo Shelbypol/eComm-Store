@@ -10,7 +10,7 @@ import { getProducts, getProductById } from '../controllers/productControllers.j
 // and call products which is the variable on line 6 requiring the products.js from the data folder (save and check port 5000/api/products and will see all products in array)
 // anything that is /api etc wil get pointed to this file so we can just have /
 
-// router.route('/').get(getProducts);
-router.get('/', getProducts);
+router.route('/').get(getProducts);
+// router.get('/', getProducts);
 router.route('/:id').get(getProductById);
 export default router
