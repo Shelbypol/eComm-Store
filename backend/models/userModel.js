@@ -33,6 +33,21 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password)
 };
 
+
+// want this to happen pre-save
+//returns a promise need await
+userSchema.pre('save', async function(next){
+
+    // isModified is part of mongoose
+    // if password edited re-encrypt it, else move to next
+    if(!this.isModified('password')){
+        next()
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
+});
+
 // set to mongoose.Model b/c we want to create a model from this schema
 const User = mongoose.model('User', userSchema);
 
