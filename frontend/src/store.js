@@ -6,14 +6,15 @@ import {
     productDetailsReducer
 } from './reducers/productReducers'
 import{ cartReducer } from './reducers/cartReducers'
-import { userLoginReducer} from "./reducers/userReducers";
+import { userLoginReducer, userRegisterReducer} from "./reducers/userReducers";
 
 // product list part of the state
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
-    userLogin: userLoginReducer
+    userLogin: userLoginReducer,
+    userRegister: userRegisterReducer
 });
 
 // LOCAL STORAGE  cart items & users

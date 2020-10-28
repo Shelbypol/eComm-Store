@@ -8,6 +8,8 @@ import Loader from '../components/Loader'
 import { login } from '../actions/userAction'
 import FormContainer from "../components/FormContainer";
 
+// whenever you bring something in from the state it's useSelector
+// if you want to call an action it's useDispatch
 
 const LoginScreen = ({ location, history }) => {
     const [email, setEmail] = useState('');
@@ -39,7 +41,7 @@ const LoginScreen = ({ location, history }) => {
             {error && <Message variant='danger'>{error}</Message> }
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
-                <Form.Group constolId='email'>
+                <Form.Group controlId='email'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control type='email'
                       placeholder='Enter email'
@@ -48,7 +50,7 @@ const LoginScreen = ({ location, history }) => {
                     </Form.Control>
                 </Form.Group>
 
-                <Form.Group constolId='Password'>
+                <Form.Group controlId='Password'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type='Password'
                                   placeholder='Enter Password'
