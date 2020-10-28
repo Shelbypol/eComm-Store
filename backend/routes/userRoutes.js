@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router();
 
-import { authUser, registerUser ,getUserProfile} from '../controllers/userController.js'
+import { authUser, registerUser, getUserProfile, updateUserProfile} from '../controllers/userController.js'
 import { protect } from '../middleware/authMiddleware.js'
 
 // GET ALL products MOVED FROM SERVER
@@ -18,6 +18,6 @@ router.post('/login', authUser);
 
 //to implement middleware use it as a first argument
 // protect means we need json token to access url (authorized)
-router.route('/profile').get(protect, getUserProfile);
+router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile);
 
 export default router
