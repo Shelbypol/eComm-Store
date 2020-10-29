@@ -13,7 +13,8 @@ import { protect } from '../middleware/authMiddleware.js'
 // router.route('/').post(registerUser);
 
 
-router.post('/', registerUser);
+// router.post('/', registerUser);
+router.route('/').post(registerUser);
 router.post('/login', authUser);
 
 //to implement middleware use it as a first argument

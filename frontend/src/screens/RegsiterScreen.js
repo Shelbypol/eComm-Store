@@ -9,7 +9,7 @@ import {register} from '../actions/userAction'
 import FormContainer from "../components/FormContainer";
 
 // whenever you bring something in from the state it's useSelector
-// if you want to call an action it's useDispatch (used to interact with our reducer)
+// if you want to call an action it's useDispatch
 
 const RegisterScreen = ({location, history}) => {
     const [name, setName] = useState('');
