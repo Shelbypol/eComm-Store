@@ -27,14 +27,12 @@ const ProfileScreen = ({location, history}) => {
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
-        }else{
-            if(!user.name){
+        }else if(!user){
                 dispatch(getUserDetails('profile'))
             }else {
                 setName(user.name);
                 setEmail(user.email);
             }
-        }
     }, [dispatch, history, userInfo, user]);
 
     const submitHandler = (e) => {
