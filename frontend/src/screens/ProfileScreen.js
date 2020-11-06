@@ -27,13 +27,16 @@ const ProfileScreen = ({location, history}) => {
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
-        }else if(!user){
+        } else {
+            if (!user.name) {
                 dispatch(getUserDetails('profile'))
-            }else {
+            } else {
                 setName(user.name);
                 setEmail(user.email);
             }
+        }
     }, [dispatch, history, userInfo, user]);
+
 
     const submitHandler = (e) => {
         //prevent page refresh
@@ -59,7 +62,6 @@ const ProfileScreen = ({location, history}) => {
                         {error && <Message variant='danger'>{error}</Message>}
                         {loading && <Loader/>}
                         <Form onSubmit={submitHandler}>
-
                             <Form.Group controlId='name'>
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control type='name'
