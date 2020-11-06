@@ -21,6 +21,7 @@ import connectDB from "./config/db.js";
  import products from './data/products.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 //create .env file in root
 dotenv.config();
@@ -44,6 +45,7 @@ app.get('/', (req,res) => {
 // anything that links to api/products we want to point to productRoutes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 // 404 not found
 app.use(notFound);
