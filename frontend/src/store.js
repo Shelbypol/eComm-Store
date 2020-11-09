@@ -10,7 +10,7 @@ import { userLoginReducer,
     userRegisterReducer,
     userDetailsReducer,
     userUpdateProfileReducer} from "./reducers/userReducers";
-import { orderCreateReducers, orderDetailsReducers } from "./reducers/orderReducers";
+import { orderCreateReducers, orderDetailsReducers, orderPayReducers } from "./reducers/orderReducers";
 
 // product list part of the state
 const reducer = combineReducers({
@@ -22,7 +22,8 @@ const reducer = combineReducers({
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
     orderCreate: orderCreateReducers,
-    orderDetails: orderDetailsReducers
+    orderDetails: orderDetailsReducers,
+    orderPay: orderPayReducers
 });
 
 // LOCAL STORAGE  cart items & users
