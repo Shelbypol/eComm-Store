@@ -56,7 +56,7 @@ const PlaceOrderScreen = ({ history }) => {
                     <ListGroup>
                         <ListGroup.Item variant='flush'>
                             <h2>Shipping</h2>
-                            <p>
+                            <div>
                                 <strong>Address: </strong>
                                 <br/>
                                 <p style={{marginLeft: '1em'}}>
@@ -64,7 +64,7 @@ const PlaceOrderScreen = ({ history }) => {
                                     {cart.shippingAddress.city},<br/>
                                     {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
                                 </p>
-                            </p>
+                            </div>
                         </ListGroup.Item>
 
 

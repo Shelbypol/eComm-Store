@@ -23,6 +23,8 @@ import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 
+
+
 //create .env file in root
 dotenv.config();
 
@@ -46,6 +48,9 @@ app.get('/', (req,res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+
+// fetch client id for paypal
+app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 
 // 404 not found
 app.use(notFound);
