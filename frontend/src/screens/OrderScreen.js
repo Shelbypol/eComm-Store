@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {Button, Row, Col, ListGroup, Image, Card} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,15 +6,24 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {getOrderDetails} from "../actions/orderActions";
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({match}) => {
     const orderId = match.params.id;
 
     const dispatch = useDispatch();
 
-
-
     const orderDetails = useSelector(state => state.orderCreate);
-    const { order, loading, error } = orderDetails;
+    const {order, loading, error} = orderDetails;
+
+    if (!loading) {
+        // CALCULATE PRICES
+        const addDecimals = (num) => {
+            return (Math.round(num * 100) / 100).toFixed(2)
+        };
+        order.itemsPrice = addDecimals(
+            order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+        );
+    }
+
 
     useEffect(() => {
         dispatch(getOrderDetails(orderId))
@@ -22,32 +31,54 @@ const OrderScreen = ({ match }) => {
 
 
     return loading ? <Loader/>
-            : error
+        : error
             ? <Message variant='danger'>{error}</Message>
             : <>
 
 
-            <h1 className='inline'>Order #</h1>
-                <h4 className='inline'>{order._id}</h4>
+                <h1 className='inline'>Order # </h1>
+                <h4 className='inline'> {order._id}</h4>
                 <Row>
                     <Col me={8}>
                         <ListGroup>
                             <ListGroup.Item variant='flush'>
                                 <h2>Shipping</h2>
                                 <p>
-                                    <strong>Address:</strong>
-                                    {order.shippingAddress.address},
-                                    {order.shippingAddress.city},
-                                    {order.shippingAddress.postalCode},
-                                    {order.shippingAddress.country}
+                                    <strong>Name: </strong>
+                                    {order.user.name}
                                 </p>
+                                <p>
+                                    <strong>Email: </strong>
+                                    <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                                </p>
+                                <p>
+                                    <strong>Address: </strong>
+                                    <br/>
+                                    <p style={{marginLeft: '1em'}}>
+                                        {order.shippingAddress.address},<br/>
+                                        {order.shippingAddress.city},<br/>
+                                        {order.shippingAddress.postalCode}, {order.shippingAddress.country}
+                                    </p>
+                                </p>
+                                {order.isDelivered ? (
+                                    <Message variant='success'>Delivered on {order.deliverdAt}</Message>
+                                ) : (
+                                    <Message variant='danger'>Not Delivered</Message>
+                                )}
                             </ListGroup.Item>
 
-
+                            {/* PAYMENT METHOD */}
                             <ListGroup.Item>
                                 <h2>Payment Method</h2>
-                                <strong>Method: </strong>
-                                {order.paymentMethod}
+                                <p>
+                                    <strong>Method: </strong>
+                                    {order.paymentMethod}
+                                </p>
+                                {order.isPaid ? (
+                                    <Message variant='success'>Paid on {order.paidAt}</Message>
+                                    ) : (
+                                    <Message variant='danger'>Not paid</Message>
+                                )}
                             </ListGroup.Item>
 
                             <ListGroup.Item>

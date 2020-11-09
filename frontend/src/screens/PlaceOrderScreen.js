@@ -10,10 +10,10 @@ const PlaceOrderScreen = ({ history }) => {
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
 
+    // CALCULATE PRICES
     const addDecimals = (num) => {
         return (Math.round(num * 100) / 100).toFixed(2)
     };
-    // CALCULATE PRICES
     cart.itemsPrice = addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0));
     cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 10);
     cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
@@ -57,11 +57,13 @@ const PlaceOrderScreen = ({ history }) => {
                         <ListGroup.Item variant='flush'>
                             <h2>Shipping</h2>
                             <p>
-                                <strong>Address:</strong>
-                                {cart.shippingAddress.address},
-                                {cart.shippingAddress.city},
-                                {cart.shippingAddress.postalCode},
-                                {cart.shippingAddress.country}
+                                <strong>Address: </strong>
+                                <br/>
+                                <p style={{marginLeft: '1em'}}>
+                                    {cart.shippingAddress.address},<br/>
+                                    {cart.shippingAddress.city},<br/>
+                                    {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+                                </p>
                             </p>
                         </ListGroup.Item>
 
