@@ -9,17 +9,17 @@ import Loader from "../components/Loader";
 import {getOrderDetails, payOrder} from "../actions/orderActions";
 import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
-const OrderScreen = ({match}) => {
+const OrderScreen = ({match, history}) => {
     const orderId = match.params.id;
 
     const [sdkReady, setSdkReady] = useState(false);
 
     const dispatch = useDispatch();
 
-    const orderDetails = useSelector(state => state.orderDetails);
+    const orderDetails = useSelector((state) => state.orderDetails);
     const {order, loading, error} = orderDetails;
 
-    const orderPay = useSelector(state => state.orderPay);
+    const orderPay = useSelector((state) => state.orderPay);
     // renaming deconstructed properties
     const {loading: loadingPay , success: successPay} = orderPay;
 
@@ -28,9 +28,9 @@ const OrderScreen = ({match}) => {
         const addDecimals = (num) => {
             return (Math.round(num * 100) / 100).toFixed(2)
         };
-        // order.itemsPrice = addDecimals(
-        //     order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-        // );
+        order.itemsPrice = addDecimals(
+            order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+        );
     }
 
     useEffect(() => {
@@ -47,13 +47,13 @@ const OrderScreen = ({match}) => {
 
         };
 
-        if((!order || order._id !== orderId) || successPay) {
-            dispatch({type: ORDER_PAY_RESET});
+        if(!order || order._id !== orderId || successPay) {
+            dispatch({ type: ORDER_PAY_RESET });
             dispatch(getOrderDetails(orderId))
-        }else if(!order.isPaid){
-            if(!window.paypal){
+        } else if(!order.isPaid) {
+            if (!window.paypal) {
                 addPayPalScript();
-            }else{
+            } else {
                 setSdkReady(true);
             }
         }
@@ -185,10 +185,8 @@ const OrderScreen = ({match}) => {
                                     <ListGroup.Item>
                                         {loadingPay && <Loader/>}
                                         {!sdkReady ? <Loader/> : (
-                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}>
-                                            </PayPalButton>
+                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
                                         )}
-
                                     </ListGroup.Item>
                                 )}
                             </ListGroup>
