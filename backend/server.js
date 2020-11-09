@@ -50,7 +50,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
 // fetch client id for paypal
-app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
+app.get('/api/config/paypal', (req, res) =>
+    res.send(process.env.PAYPAL_CLIENT_ID)
+);
 
 // 404 not found
 app.use(notFound);

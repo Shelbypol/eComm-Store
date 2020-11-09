@@ -16,7 +16,7 @@ const OrderScreen = ({match}) => {
 
     const dispatch = useDispatch();
 
-    const orderDetails = useSelector(state => state.orderCreate);
+    const orderDetails = useSelector(state => state.orderDetails);
     const {order, loading, error} = orderDetails;
 
     const orderPay = useSelector(state => state.orderPay);
@@ -28,9 +28,9 @@ const OrderScreen = ({match}) => {
         const addDecimals = (num) => {
             return (Math.round(num * 100) / 100).toFixed(2)
         };
-        order.itemsPrice = addDecimals(
-            order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-        );
+        // order.itemsPrice = addDecimals(
+        //     order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+        // );
     }
 
     useEffect(() => {
@@ -185,8 +185,7 @@ const OrderScreen = ({match}) => {
                                     <ListGroup.Item>
                                         {loadingPay && <Loader/>}
                                         {!sdkReady ? <Loader/> : (
-                                            <PayPalButton amoutn={order.totalPrice} onSuccess={successPaymentHandler}>
-
+                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}>
                                             </PayPalButton>
                                         )}
 
