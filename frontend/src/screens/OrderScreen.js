@@ -7,9 +7,9 @@ import {useDispatch, useSelector} from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {getOrderDetails, payOrder} from "../actions/orderActions";
-import {ORDER_PAY_RESET} from "../constants/orderConstants";
+import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
-const OrderScreen = ({match}) => {
+const OrderScreen = ({ match }) => {
     const orderId = match.params.id;
 
     // software dev kit ( sdk ) that paypal gives us
@@ -22,7 +22,7 @@ const OrderScreen = ({match}) => {
 
     const orderPay = useSelector((state) => state.orderPay);
     // renaming deconstructed properties
-    const {loading: loadingPay , success: successPay, error: orderPayError} = orderPay;
+    const {loading: loadingPay , success: successPay} = orderPay;
 
     if (!loading) {
         // CALCULATE PRICES
@@ -45,13 +45,12 @@ const OrderScreen = ({match}) => {
                 setSdkReady(true)
             };
             document.body.appendChild(script)
-
         };
         if(!order || order._id !== orderId || successPay) {
             dispatch({ type: ORDER_PAY_RESET });
             dispatch(getOrderDetails(orderId))
         } else if(!order.isPaid) {
-            if (!window.paypal) {
+            if(!window.paypal) {
                 addPayPalScript();
             } else {
                 setSdkReady(true);
