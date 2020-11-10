@@ -7,11 +7,12 @@ import {useDispatch, useSelector} from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {getOrderDetails, payOrder} from "../actions/orderActions";
-import { ORDER_PAY_RESET } from "../constants/orderConstants";
+import {ORDER_PAY_RESET} from "../constants/orderConstants";
 
 const OrderScreen = ({match}) => {
     const orderId = match.params.id;
 
+    // software dev kit ( sdk ) that paypal gives us
     const [sdkReady, setSdkReady] = useState(false);
 
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const OrderScreen = ({match}) => {
 
     const orderPay = useSelector((state) => state.orderPay);
     // renaming deconstructed properties
-    const {loading: loadingPay , success: successPay} = orderPay;
+    const {loading: loadingPay , success: successPay, error: orderPayError} = orderPay;
 
     if (!loading) {
         // CALCULATE PRICES
@@ -46,7 +47,6 @@ const OrderScreen = ({match}) => {
             document.body.appendChild(script)
 
         };
-
         if(!order || order._id !== orderId || successPay) {
             dispatch({ type: ORDER_PAY_RESET });
             dispatch(getOrderDetails(orderId))
@@ -59,7 +59,9 @@ const OrderScreen = ({match}) => {
         }
     }, [dispatch, order, orderId, successPay]);
 
+    // takes in payment result from paypal
     const successPaymentHandler = (paymentResult) => {
+        console.log('order id: ' + orderId);
         console.log('payment result ' + paymentResult);
         dispatch(payOrder(orderId, paymentResult));
     };
@@ -68,8 +70,6 @@ const OrderScreen = ({match}) => {
         : error
             ? <Message variant='danger'>{error}</Message>
             : <>
-
-
                 <h1 className='inline'>Order # </h1>
                 <h4 className='inline'> {order._id}</h4>
                 <Row>
