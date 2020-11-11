@@ -1,8 +1,8 @@
 import express from 'express'
 const router = express.Router();
 
-import { authUser, registerUser, getUserProfile, updateUserProfile} from '../controllers/userController.js'
-import { protect } from '../middleware/authMiddleware.js'
+import { authUser, registerUser, getUserProfile, updateUserProfile ,getUsers} from '../controllers/userController.js'
+import { protect, admin } from '../middleware/authMiddleware.js'
 
 // GET ALL products MOVED FROM SERVER
 // create API route then set up respond with json (could do send but only json is sent to and from, although send would work because it would convert it to json type )
@@ -14,8 +14,9 @@ import { protect } from '../middleware/authMiddleware.js'
 
 
 // router.post('/', registerUser);
-router.route('/').post(registerUser);
+router.route('/').post(registerUser).get(protect, admin, getUsers);
 router.post('/login', authUser);
+
 
 //to implement middleware use it as a first argument
 // protect means we need json token to access url (authorized)
