@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userAction'
+import { listMyOrders } from "../actions/orderActions";
 
 // whenever you bring something in from the state it's useSelector
 // if you want to call an action it's useDispatch
@@ -27,12 +28,16 @@ const ProfileScreen = ({location, history}) => {
     const userUpdateProfile = useSelector(state => state.userUpdateProfile);
     const { success } = userUpdateProfile;
 
+    const orderListMy = useSelector(state => state.orderListMy);
+    const {loading: loadingOrders, error: errorOrders, orders} = orderListMy;
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
             if (!user.name) {
-                dispatch(getUserDetails('profile'))
+                dispatch(getUserDetails('profile'));
+                dispatch(listMyOrders())
             } else {
                 setName(user.name);
                 setEmail(user.email);

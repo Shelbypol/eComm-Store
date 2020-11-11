@@ -46,7 +46,9 @@ const OrderScreen = ({ match }) => {
             };
             document.body.appendChild(script)
         };
-        if(!order || order._id !== orderId || successPay) {
+
+        // if(!order || order._id !== orderId || successPay) {
+        if(!order || successPay) {
             dispatch({ type: ORDER_PAY_RESET });
             dispatch(getOrderDetails(orderId))
         } else if(!order.isPaid) {
@@ -60,8 +62,6 @@ const OrderScreen = ({ match }) => {
 
     // takes in payment result from paypal
     const successPaymentHandler = (paymentResult) => {
-        console.log('order id: ' + orderId);
-        console.log('payment result ' + paymentResult);
         dispatch(payOrder(orderId, paymentResult));
     };
 
