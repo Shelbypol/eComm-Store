@@ -40,13 +40,6 @@ app.use(express.json());
 // set up route and then run a function that takes in a request and a response object and then take that response object and
 // call send to send to the client message that api is running (check port 5000 for message )
 app.get('/', (req,res) => {
-    // res.cookie('nameOfCookie', 'cookieValue', {
-    //     // maxAge: 60 * 60 * 1000, // 1 hour
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: true,
-    // });
-    // res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=None");
     res.send('API is running...')
 } );
 
@@ -59,7 +52,6 @@ app.use('/api/orders', orderRoutes);
 // fetch client id for paypal
 app.get('/api/config/paypal', (req, res) =>
     res.send(process.env.PAYPAL_CLIENT_ID),
-    // res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict")
 );
 
 // 404 not found
