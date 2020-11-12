@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from "../components/FormContainer";
-import { listProductDetails } from "../actions/productActions";
+import { listProductDetails, updateProduct } from "../actions/productActions";
+import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 
 
 const ProductEditScreen = ({ match, history }) => {
@@ -24,10 +25,17 @@ const ProductEditScreen = ({ match, history }) => {
     const productDetails = useSelector(state => state.productDetails);
     const { loading, error, product } = productDetails;
 
+    const productUpdate = useSelector(state => state.productUpdate);
+    const { loading: loadingUpdate, error: errorUpdate , success: successUpdate } = productUpdate;
+
 
     useEffect(() => {
 
-            if( !product.name || product._id !== productId) {
+        if(successUpdate){
+            dispatch({ type: PRODUCT_UPDATE_RESET });
+            history.push('/admin/productlist');
+        } else {
+            if (!product.name || product._id !== productId) {
                 dispatch(listProductDetails(productId))
             } else {
                 setName(product.name);
@@ -38,11 +46,22 @@ const ProductEditScreen = ({ match, history }) => {
                 setCountInStock(product.category);
                 setDescription(product.description);
             }
-    }, [product, dispatch, productId, history]);
+        }
+    }, [product, dispatch, productId, history, successUpdate]);
 
     const submitHandler = (e) => {
         e.preventDefault();
-    //     UPDATE PRODUCT
+        dispatch(
+            updateProduct({
+            _id: productId,
+            name,
+            price,
+            image,
+            brand,
+            category,
+            description,
+            countInStock
+        }))
     };
 
     return (
@@ -52,6 +71,8 @@ const ProductEditScreen = ({ match, history }) => {
             </Link>
             <FormContainer>
                 <h1>Edit Product</h1>
+                {loadingUpdate && <Loader />}
+                {errorUpdate && <Message variant='danger'>{errorUpdate}</Message> }
                 {loading && <Loader />}
                 {loading && <Message variant='danger'>{error}</Message> }
                 {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> : (
@@ -95,8 +116,8 @@ const ProductEditScreen = ({ match, history }) => {
                         </Form.Group>
                         {/* COUNT IN STOCK*/}
                         <Form.Group controlId='countInStock'>
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control type='countInStock'
+                            <Form.Label>Count In Stock</Form.Label>
+                            <Form.Control type='number'
                                           placeholder='Enter count in stock'
                                           value={countInStock}
                                           onChange={(e) => setCountInStock(e.target.value)}>
@@ -104,7 +125,7 @@ const ProductEditScreen = ({ match, history }) => {
                         </Form.Group>
                         {/* CATEGORIES */}
                         <Form.Group controlId='category'>
-                            <Form.Label>Brand</Form.Label>
+                            <Form.Label>Category</Form.Label>
                             <Form.Control type='text'
                                           placeholder='Enter category'
                                           value={category}
@@ -113,7 +134,7 @@ const ProductEditScreen = ({ match, history }) => {
                         </Form.Group>
                         {/* DESCRIPTION */}
                         <Form.Group controlId='description'>
-                            <Form.Label>Brand</Form.Label>
+                            <Form.Label>Description</Form.Label>
                             <Form.Control type='text'
                                           placeholder='Enter description'
                                           value={description}
