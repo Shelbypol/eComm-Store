@@ -23,7 +23,7 @@ import connectDB from "./config/db.js";
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
-import uploadRoutes from './routes/uploadRoutes'
+import uploadRoutes from './routes/uploadRoutes.js'
 
 // Set-Cookie: promo_shown=1; SameSite=Strict;
 
