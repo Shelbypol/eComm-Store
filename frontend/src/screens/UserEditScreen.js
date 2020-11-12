@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from "../components/FormContainer";
-import { getUserDetails } from '../actions/userAction'
+import { getUserDetails, updateUser } from '../actions/userAction'
+import { USER_UPDATE_RESET} from "../constants/userConstans";
 
 // whenever you bring something in from the state it's useSelector
 // if you want to call an action it's useDispatch
@@ -15,36 +16,45 @@ const UserEditScreen = ({ match, history}) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const[isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const dispatch = useDispatch();
 
     const userDetails = useSelector(state => state.userDetails);
     const { loading, error, user } = userDetails;
 
+    const userUpdate = useSelector(state => state.userUpdate);
+    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = userUpdate;
+
     useEffect(() => {
-        if(!user.name || user._id !== userId){
-            console.log(user);
-            dispatch(getUserDetails(userId))
-        }else{
-            setName(user.name);
-            setEmail(user.email);
-            setIsAdmin(user.isAdmin);
+        if(successUpdate){
+            dispatch({ type: USER_UPDATE_RESET });
+            history.push('/admin/userlist');
+        } else {
+            if( !user.name || user._id !== userId) {
+                dispatch(getUserDetails(userId))
+            } else {
+                setName(user.name);
+                setEmail(user.email);
+                setIsAdmin(user.isAdmin);
+            }
         }
-    }, [user, dispatch, userId]);
+    }, [user, dispatch, userId, successUpdate, history]);
 
     const submitHandler = (e) => {
         e.preventDefault();
-
+        dispatch(updateUser({ _id: userId, name, email, isAdmin }))
     };
 
     return (
         <>
-            <Link to='admin/userlist' className='btn btn-light my-3'>
+            <Link to='/admin/userlist' className='btn btn-light my-3'>
                 Go Back
             </Link>
             <FormContainer>
                 <h1>Edit User</h1>
+                {loadingUpdate && <Loader />}
+                {loadingUpdate && <Message variant='danger'>{errorUpdate}</Message> }
                 {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> : (
                     <Form onSubmit={submitHandler}>
                         <Form.Group controlId='name'>

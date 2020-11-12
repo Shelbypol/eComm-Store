@@ -21,7 +21,6 @@ import {
     USER_DELETE_SUCCESS,
     USER_DELETE_REQUEST,
     USER_DELETE_FAIL,
-    USER_UPDATE_RESET,
     USER_UPDATE_FAIL,
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS
@@ -41,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.post('api/users/login', { email, password }, config);
+        const { data } = await axios.post('/api/users/login', { email, password }, config);
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
@@ -82,7 +81,7 @@ export const register = (name, email, password) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.post('api/users', { name, email, password }, config);
+        const { data } = await axios.post('/api/users', { name, email, password }, config);
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
@@ -158,7 +157,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
             }
         };
 
-        const {data} = await axios.put(`api/users/profile`, user ,config);
+        const {data} = await axios.put(`/api/users/profile`, user ,config);
 
         dispatch({
             type: USER_UPDATE_PROFILE_SUCCESS,
@@ -240,7 +239,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     }
 };
 
-// ============ UPADATE USERS
+// ============ UPDATE USER
 export const updateUser = (user) => async (dispatch, getState) => {
     try {
         dispatch({
@@ -256,12 +255,12 @@ export const updateUser = (user) => async (dispatch, getState) => {
             }
         };
 
-        const{ data } = await axios.put(`/api/user/${user._id}`, user ,config);
+        const { data } = await axios.put(`/api/users/${user._id}`, user, config);
 
         dispatch({ type: USER_UPDATE_SUCCESS });
         //state trickles down
-        dispatch({ type: USER_DETAILS_SUCCESS, payload: data})
-
+        dispatch({ type: USER_DETAILS_SUCCESS, payload: data});
+        dispatch({ type: USER_DETAILS_RESET })
     } catch (error) {
         dispatch({
             type: USER_UPDATE_FAIL,
