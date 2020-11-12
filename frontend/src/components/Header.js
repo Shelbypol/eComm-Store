@@ -48,14 +48,14 @@ const Header = () => {
                                 </LinkContainer>
                             }
 
-                            {!userInfo ? (
+                            {!userInfo && (
                                 <LinkContainer to='/Register'>
                                     <Nav.Link><i className='fas fa-user'> </i> Register
                                     </Nav.Link>
-                                </LinkContainer>) : ''
+                                </LinkContainer>)
                             }
 
-                            {userInfo && userInfo.isAdmin (
+                            {userInfo && userInfo.isAdmin && (
                                 <NavDropdown title='Admin' id='adminmenu'>
                                     <LinkContainer to='/admin/userlist'>
                                         <NavDropdown.Item>Users</NavDropdown.Item>

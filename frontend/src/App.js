@@ -36,7 +36,7 @@ const App = () => {
                     <Route path='/payment' component={PaymentScreen} />
                     <Route path='/placeorder' component={PlaceOrderScreen} />
                     <Route path='/order/:id' component={OrderScreen} />
-                    <Route path='/adminuserlist' component={UserListScreen} />
+                    <Route path='/admin/userlist' component={UserListScreen} />
                     <Route path='/' component={HomeScreen} exact />
                 </Container>
             </main>
