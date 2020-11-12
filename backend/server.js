@@ -1,3 +1,4 @@
+import path from 'path'
 // this syntax using 'require' is common javascript which is traditionally what node.js used.
 // on the frontend we are using the import syntax which is ES modules
 // with node 14.4 you can use ES modules now without babel was ( const express = require ('express') now wit
@@ -22,6 +23,7 @@ import connectDB from "./config/db.js";
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import uploadRoutes from './routes/uploadRoutes'
 
 // Set-Cookie: promo_shown=1; SameSite=Strict;
 
@@ -48,11 +50,16 @@ app.get('/', (req,res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // fetch client id for paypal
 app.get('/api/config/paypal', (req, res) =>
     res.send(process.env.PAYPAL_CLIENT_ID),
 );
+
+const __dirname = path.resolve();
+// making our uploads folder static with express
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // 404 not found
 app.use(notFound);
