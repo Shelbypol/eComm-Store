@@ -5,7 +5,7 @@ import {
     productListReducer,
     productDetailsReducer,
     productDeleteReducer,
-    productCreateReducer
+    productCreateReducer,
 } from './reducers/productReducers'
 import{ cartReducer } from './reducers/cartReducers'
 import { userLoginReducer,

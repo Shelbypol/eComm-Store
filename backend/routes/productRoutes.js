@@ -12,7 +12,7 @@ import {deleteProduct, createProduct, updateProduct} from "../controllers/produc
 // anything that is /api etc wil get pointed to this file so we can just have /
 
 router.route('/').get(getProducts).post(protect, admin, createProduct);
-// router.get('/', getProducts);
+
 router
     .route('/:id')
     .get(getProductById)
