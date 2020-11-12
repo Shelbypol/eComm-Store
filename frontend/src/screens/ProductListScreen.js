@@ -30,6 +30,10 @@ const ProductListScreen = ({ history, match }) => {
         }
     };
 
+    const createProductHandler = (product) => {
+    //    CREATE PRODUCT
+    };
+
 
     return (
         <>
