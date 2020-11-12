@@ -9,7 +9,11 @@ import axios from 'axios'
      PRODUCT_DETAILS_SUCCESS,
      PRODUCT_DELETE_SUCCESS,
      PRODUCT_DELETE_REQUEST,
-     PRODUCT_DELETE_FAIL
+     PRODUCT_DELETE_FAIL,
+     PRODUCT_CREATE_RESET,
+     PRODUCT_CREATE_SUCCESS,
+     PRODUCT_CREATE_REQUEST,
+     PRODUCT_CREATE_FAIL
  } from '../constants/productConstants'
  // import {ORDER_LIST_MY_FAIL, ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_SUCCESS} from "../constants/orderConstants";
 
@@ -79,7 +83,6 @@ import axios from 'axios'
              type: PRODUCT_DELETE_SUCCESS,
          });
 
-
      } catch (error) {
          const message =
              error.response && error.response.data.message
@@ -87,6 +90,39 @@ import axios from 'axios'
                  : error.message;
          dispatch({
              type: PRODUCT_DELETE_FAIL,
+             payload: message,
+         })
+     }
+ };
+
+ export const createProduct = () => async (dispatch, getState) => {
+     try {
+         dispatch({
+             type: PRODUCT_CREATE_REQUEST,
+         });
+
+         const { userLogin: { userInfo } } = getState();
+
+         const config = {
+             headers: {
+                 Authorization: `Bearer ${ userInfo.token }`
+             }
+         };
+
+         const { data } = await axios.post(`/api/products/`, {} ,config);
+
+         dispatch({
+             type: PRODUCT_CREATE_SUCCESS,
+             payload: data
+         });
+
+     } catch (error) {
+         const message =
+             error.response && error.response.data.message
+                 ? error.response.data.message
+                 : error.message;
+         dispatch({
+             type: PRODUCT_CREATE_FAIL,
              payload: message,
          })
      }
