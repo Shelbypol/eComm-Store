@@ -31,7 +31,9 @@ import { listProducts } from '../actions/productActions'
     // }, []);
 
     // ============================= redux implementation ==================
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+
+    const keyword = match.params.keyword;
     // using hook
     const dispatch = useDispatch();
 
@@ -40,8 +42,8 @@ const HomeScreen = () => {
     const { loading, error, products } = productList;
 
     useEffect(() => {
-        dispatch(listProducts());
-    },[dispatch]);
+        dispatch(listProducts(keyword));
+    },[dispatch, keyword]);
 
     return (
         <>
