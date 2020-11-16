@@ -122,7 +122,7 @@ export const productReviewCreateReducer = (state = { }, action) => {
 };
 
 // PRODUCT TOP RATED CAROUSEL REDUCER
-export const productTopRatedReducer = (state = {products: []}, action) => {
+export const productTopRatedReducer = (state = { products: [] }, action) => {
     switch(action.type){
         case PRODUCT_TOP_REQUEST:
             return { loading: true, products: [] };
