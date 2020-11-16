@@ -129,7 +129,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 
         product.numReviews = product.reviews.length;
 
-        product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / products.reviews.length
+        product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
 
         await product.save();
 
@@ -147,5 +147,6 @@ export {
     getProductById,
     deleteProduct,
     createProduct,
-    updateProduct
+    updateProduct,
+    createProductReview
 }
