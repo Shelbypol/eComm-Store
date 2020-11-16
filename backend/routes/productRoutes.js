@@ -5,6 +5,7 @@ const router = express.Router();
 import { getProducts, getProductById } from '../controllers/productControllers.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 import {deleteProduct, createProduct, updateProduct, createProductReview} from "../controllers/productControllers.js";
+import {getTopProducts} from "../controllers/productControllers";
 
 // GET ALL products MOVED FROM SERVER
 // create API route then set up respond with json (could do send but only json is sent to and from, although send would work because it would convert it to json type )
@@ -13,6 +14,7 @@ import {deleteProduct, createProduct, updateProduct, createProductReview} from "
 
 router.route('/').get(getProducts).post(protect, admin, createProduct);
 router.route('/:id/reviews').post(protect, createProductReview);
+router.get('/top', getTopProducts);
 
 router
     .route('/:id')
