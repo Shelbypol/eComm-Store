@@ -22,7 +22,8 @@ import {
     orderDetailsReducers,
     orderPayReducers,
     orderListMyReducer,
-    orderListReducer
+    orderListReducer,
+    orderDeliverReducer
 } from "./reducers/orderReducers";
 
 // product list part of the state
@@ -43,6 +44,7 @@ const reducer = combineReducers({
     orderCreate: orderCreateReducers,
     orderDetails: orderDetailsReducers,
     orderPay: orderPayReducers,
+    orderDeliver: orderDeliverReducer,
     orderListMy: orderListMyReducer,
     orderList: orderListReducer
 });
