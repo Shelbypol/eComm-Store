@@ -6,6 +6,9 @@ import express from 'express'
 
 // import colors to change command line colors
 import colors from 'colors'
+
+import morgan from 'morgan';
+
 // bring in env that installed in root (npm i dotenv) environmental variables to set up database connectio
 import dotenv from 'dotenv'
 
@@ -35,6 +38,11 @@ connectDB();
 
 // initialize express with a variable
 const app = express();
+
+// only in dev
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'))
+}
 
 app.use(express.json());
 

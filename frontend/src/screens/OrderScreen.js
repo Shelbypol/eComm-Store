@@ -68,7 +68,7 @@ const OrderScreen = ({ match, history }) => {
                 setSdkReady(true);
             }
         }
-    }, [dispatch, order, orderId, successPay, successDeliver, history]);
+    }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
 
     // takes in payment result from paypal
     const successPaymentHandler = (paymentResult) => {
