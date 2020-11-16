@@ -6,6 +6,7 @@ import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
+import Paginate from '../components/Paginate'
 // import axios from 'axios'
 // =========== means starting code before redux
 
@@ -34,16 +35,19 @@ import { listProducts } from '../actions/productActions'
 const HomeScreen = ({ match }) => {
 
     const keyword = match.params.keyword;
+
+    const pageNumber = match.params.pageNumber || 1;
+
     // using hook
     const dispatch = useDispatch();
 
     // useSelector retrieves items from state
     const productList = useSelector(state => state.productList);
-    const { loading, error, products } = productList;
+    const { loading, error, products, pages, page } = productList;
 
     useEffect(() => {
-        dispatch(listProducts(keyword));
-    },[dispatch, keyword]);
+        dispatch(listProducts(keyword, pageNumber));
+    },[dispatch, keyword, pageNumber]);
 
     return (
         <>
@@ -53,6 +57,7 @@ const HomeScreen = ({ match }) => {
                 : error ?
                     ( <Message variant='danger'>{error}</Message> )
                 : (
+                <>
                 <Row>
                     {/* Map is telling it to loop through each product where it is then bringing in the product component to know how to display each one */}
                     {/* When you map out items like this to create a list each element needs to have a key and that needs to be unique */}
@@ -62,10 +67,12 @@ const HomeScreen = ({ match }) => {
                         </Col>
                     ))}
                 </Row>
+                <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
+                </>
                     )
             }
         </>
     )
 };
 
-export default HomeScreen
+export default HomeScreen;
