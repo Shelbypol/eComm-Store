@@ -44,7 +44,7 @@ const reducer = combineReducers({
     orderDetails: orderDetailsReducers,
     orderPay: orderPayReducers,
     orderListMy: orderListMyReducer,
-    ordersList: orderListReducer
+    orderList: orderListReducer
 });
 
 // LOCAL STORAGE cart items & users

@@ -4,13 +4,13 @@ import {Table, Button} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listOrders} from "../actions/orderActions"
+import { listOrders } from "../actions/orderActions"
 
 const OrderListScreen = ({ history }) => {
     const dispatch = useDispatch();
 
     // BRINGING IN DIFF PARTS OF STATE
-    const orderList = useSelector(state => state.userList);
+    const orderList = useSelector(state => state.orderList);
     const { loading, error, orders } = orderList;
 
     const userLogin = useSelector(state => state.userLogin);
@@ -42,7 +42,7 @@ const OrderListScreen = ({ history }) => {
                         </tr>
                         </thead>
                         <tbody>
-                        {orders.map((order => (
+                            {orders.map((order) => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
                                 <td>{order.user && order.user.name}</td>
@@ -75,7 +75,7 @@ const OrderListScreen = ({ history }) => {
 
                                 </td>
                             </tr>
-                        )))}
+                        ))}
                         </tbody>
                     </Table>
                 )}
