@@ -58,6 +58,7 @@ const HomeScreen = ({ match }) => {
                     ( <Message variant='danger'>{error}</Message> )
                 : (
                 <>
+                    <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
                 <Row>
                     {/* Map is telling it to loop through each product where it is then bringing in the product component to know how to display each one */}
                     {/* When you map out items like this to create a list each element needs to have a key and that needs to be unique */}
