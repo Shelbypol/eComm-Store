@@ -8,6 +8,7 @@ import { useDispatch, useSelector} from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import {logout} from '../actions/userAction'
 import SearchBox from "./SearchBox";
+import {CART_RESET} from "../constants/cartConstants";
 
 
 const Header = () => {
@@ -18,7 +19,9 @@ const Header = () => {
     const { userInfo } = userLogin;
 
     const logoutHandler = () => {
-        dispatch(logout())
+        // window.localStorage.clear();
+        dispatch({ type: CART_RESET});
+        dispatch(logout());
     };
 
     return (

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
+import {LinkContainer} from "react-router-bootstrap";
 
 // match == id, location == get a query string '?qty', history == used to redirect
 const CartScreen = ({ match, location, history }) => {
@@ -41,8 +42,14 @@ const CartScreen = ({ match, location, history }) => {
           <Col md={8}>
               <h1>Shopping Cart</h1>
               {cartItems.length === 0
-                  ? (<Message>Your care is empty <Link to={'/'}>Go Back</Link></Message>)
-                  : (<ListGroup variant='flush'>
+                  ? (<Message>Your cart is empty <Link to={'/'}>Go Back</Link></Message>)
+                  : ( <>
+                      <LinkContainer to={`/`}>
+                          <Button variant='dark' className='btn-sm'>
+                              Continue Shopping
+                          </Button>
+                      </LinkContainer>
+                      <ListGroup variant='flush'>
                       {cartItems.map(item => (
                           <ListGroup.Item key={item.product}>
                                 <Row>
@@ -72,7 +79,9 @@ const CartScreen = ({ match, location, history }) => {
                                 </Row>
                           </ListGroup.Item>
                       ))}
-                    </ListGroup>)
+                    </ListGroup>
+                      </>
+                      )
               }
           </Col>
 

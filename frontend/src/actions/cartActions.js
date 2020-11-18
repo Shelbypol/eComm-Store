@@ -8,7 +8,7 @@ import {
 
 // use thunk so pass in async
 export const addToCart = (id, qty) => async(dispatch, getState) => {
-    const { data } = await axios.get(`/api/products/${id}`)
+    const { data } = await axios.get(`/api/products/${id}`);
 
     dispatch({
         type: CART_ADD_ITEM,
@@ -26,6 +26,7 @@ export const addToCart = (id, qty) => async(dispatch, getState) => {
     // can only save strings in local storage
     // local storage === session ?
     // save but how to get from state ... use initial state in store.js
+
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 };
 

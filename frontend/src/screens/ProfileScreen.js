@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userAction'
 import { listMyOrders } from "../actions/orderActions";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstans";
 
 // whenever you bring something in from the state it's useSelector
 // if you want to call an action it's useDispatch
@@ -36,7 +37,8 @@ const ProfileScreen = ({location, history}) => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user.name) {
+            if (!user.name || !user || success) {
+                dispatch({ type: USER_UPDATE_PROFILE_RESET });
                 dispatch(getUserDetails('profile'));
                 dispatch(listMyOrders())
             } else {
@@ -44,7 +46,7 @@ const ProfileScreen = ({location, history}) => {
                 setEmail(user.email);
             }
         }
-    }, [dispatch, history, userInfo, user]);
+    }, [dispatch, history, userInfo, user, success]);
 
 
     const submitHandler = (e) => {

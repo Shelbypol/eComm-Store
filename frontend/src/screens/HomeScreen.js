@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Link} from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col} from 'react-bootstrap'
 import Product from '../components/Product'
@@ -12,6 +11,11 @@ import Meta from "../components/Meta";
 import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = ({ match }) => {
+
+    window.onbeforeunload = () => {
+        // Clear the local storage
+       localStorage.clear()
+    };
 
     const keyword = match.params.keyword;
 
@@ -30,7 +34,8 @@ const HomeScreen = ({ match }) => {
 
     return (
         <>
-        <Meta />
+        <Meta title='Proshop | Home' />
+
             {!keyword ? <ProductCarousel /> : <Link to='/' className='btn btn-light'>Back</Link>}
 
             <h1>Latest Products</h1>
