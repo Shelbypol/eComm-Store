@@ -10,7 +10,7 @@ import Paginate from '../components/Paginate'
 import Meta from "../components/Meta";
 import ProductCarousel from "../components/ProductCarousel";
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ match, history }) => {
 
     window.onbeforeunload = () => {
         // Clear the local storage
@@ -32,6 +32,7 @@ const HomeScreen = ({ match }) => {
         dispatch(listProducts(keyword, pageNumber));
     },[dispatch, keyword, pageNumber]);
 
+
     return (
         <>
         <Meta title='Proshop | Home' />
@@ -51,7 +52,7 @@ const HomeScreen = ({ match }) => {
                     {/* When you map out items like this to create a list each element needs to have a key and that needs to be unique */}
                     {products.map(product => (
                         <Col key={product._id} sm={12} md={6} lg={4}>
-                            <Product product={product}/>
+                            <Product product={product} history={history} productId={product._id}/>
                         </Col>
                     ))}
                 </Row>

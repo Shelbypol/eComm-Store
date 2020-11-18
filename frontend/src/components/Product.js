@@ -1,11 +1,20 @@
 import React from 'react';
 //import Link for Router
 import { Link  } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
+import {Button, Card, ListGroup} from 'react-bootstrap'
 import Rating from './Rating'
+import {useSelector} from "react-redux";
 
 // access props (product._id and product.image) through the ({ product )} in the function param
-const Product = ({ product }) => {
+const Product = ({ product, history, productId }) => {
+
+    //HANDLERS
+    const addToCartHandler = () => {
+        console.log(product._id);
+        history.push(`/cart/${productId}?qty=1`);
+    };
+
+
     return (
         <Card className='my-3 p-3 rounded'>
             {/* Replace 'a' tags with Link from router and href is replaced with 'to'*/}
@@ -29,6 +38,16 @@ const Product = ({ product }) => {
                 <Card.Text as='h3'>
                     ${product.price}
 
+                </Card.Text>
+                <Card.Text>
+                    <Button
+                        onClick={addToCartHandler}
+                        className='btn btn-block'
+                        type='button'
+                        // disabled={product.countInStock === 0 }
+                    >
+                        ADD TO CART
+                    </Button>
                 </Card.Text>
             </Card.Body>
         </Card>
