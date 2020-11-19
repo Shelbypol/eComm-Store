@@ -73,6 +73,11 @@ const productSchema = mongoose.Schema({
         required: true,
         default: 0
     },
+    isWishList: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
 }, {
     //add this second argument and it will add date and time automatically
     timestamps: true

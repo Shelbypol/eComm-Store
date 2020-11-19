@@ -8,7 +8,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {getOrderDetails, payOrder, deliverOrder } from "../actions/orderActions";
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from "../constants/orderConstants";
-import {CART_RESET} from "../constants/cartConstants";
+import {CART_RESET, CART_SAVE_SHIPPING_ADDRESS} from "../constants/cartConstants";
 
 const OrderScreen = ({ match, history }) => {
     const orderId = match.params.id;
@@ -80,7 +80,8 @@ const OrderScreen = ({ match, history }) => {
         // Clear Cart on success payment
         // console.log(successPay);
         // if(successPay){
-        //     dispatch({ type: CART_RESET })
+            dispatch({ type: CART_RESET });
+        // {history.push(`/thankyou/${paymentResult}/${orderId}`)}
         // }
     };
 
@@ -131,7 +132,10 @@ const OrderScreen = ({ match, history }) => {
                                     {order.paymentMethod}
                                 </p>
                                 {order.isPaid ? (
-                                    <Message variant='success'>Paid on {order.paidAt}</Message>
+                                    <>
+                                    <Message variant='success' >Paid on {order.paidAt}</Message>
+                                    {history.push(`/thankyou/${orderId}`)}
+                                   </>
                                     ) : (
                                     <Message variant='danger'>Not paid</Message>
                                 )}

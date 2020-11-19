@@ -33,7 +33,7 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
                 paymentMethod: action.payload,
             };
         case CART_RESET:
-            return {  cartItems: [], shippingAddress: {} };
+            return { cartItems: [], shippingAddress: {} };
         default:
             return state
     }
