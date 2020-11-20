@@ -15,7 +15,7 @@ const ThankYouScreen = ({history, match}) => {
     const {userInfo} = userLogin;
 
     useEffect(() => {
-        if (userInfo || userInfo.isAdmin) {
+        if (userInfo) {
             dispatch(getOrderDetails(orderId))
         } else {
             history.push('/login')
@@ -28,8 +28,11 @@ const ThankYouScreen = ({history, match}) => {
             {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message>
                 : (
                     <>
-                        <h4> Your order confirmation: {order._id}</h4>
-                        <h4>Paid on: {order.paidAt.substring(0, 10)}</h4>
+                        <div>
+                            <h4> Your order confirmation: {order._id}</h4>
+
+                            <h4>Paid on: {order.paidAt.substring(0, 10)}</h4>
+                        </div>
                     </>
                 )
             }
