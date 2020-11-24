@@ -63,7 +63,7 @@ const ProductListScreen = ({ history, match }) => {
 
     return (
         <>
-            <Row className='align-itmes-center'>
+            <Row className='align-items-center'>
                 <Col>
                     <h1>Products</h1>
                 </Col>

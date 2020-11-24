@@ -133,7 +133,7 @@ const ProductEditScreen = ({ match, history }) => {
                                        label='Choose File'
                                        custom
                                        onChange={uploadFileHandler}
-                           ></Form.File>
+                           > </Form.File>
                             {uploading && <Loader />}
                         </Form.Group>
                         {/* BRAND */}

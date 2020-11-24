@@ -54,7 +54,7 @@ app.get('/', (req,res) => {
 } );
 
 //mount the productRoutes we imported
-// anything that links to api/products we want to point to productRoutes
+// anything that links to /api/products we want to point to productRoutes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
