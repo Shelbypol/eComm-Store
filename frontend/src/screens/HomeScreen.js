@@ -30,6 +30,7 @@ const HomeScreen = ({ match, history }) => {
 
     useEffect(() => {
         dispatch(listProducts(keyword, pageNumber));
+
     },[dispatch, keyword, pageNumber]);
 
 
